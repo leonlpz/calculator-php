@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora PHP</title>
+</head>
+<body>
+    <h2>Calculadora PHP</h2>
+
+    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <input type="number" name="num1" placeholder="Ingrese el primer número" required><br><br>
+        <select name="operacion" required>
+            <option value="+">Suma</option>
+            <option value="-">Resta</option>
+            <option value="*">Multiplicación</option>
+            <option value="/">División</option>
+        </select><br><br>
+        <input type="number" name="num2" placeholder="Ingrese el segundo número" required><br><br>
+        <input type="submit" name="calcular" value="Calcular">
+    </form>
+
+    <?php
+    $resultado = "";
+    if (isset($_POST['calcular'])) {
+        $num1 = $_POST['num1'];
+        $num2 = $_POST['num2'];
+        $operacion = $_POST['operacion'];
+
+        switch ($operacion) {
+            case '+':
+                $resultado = $num1 + $num2;
+                break;
+            case '-':
+                $resultado = $num1 - $num2;
+                break;
+            case '*':
+                $resultado = $num1 * $num2;
+                break;
+            case '/':
+                if ($num2 != 0) {
+                    $resultado = $num1 / $num2;
+                } else {
+                    echo "Error: No se puede dividir entre cero.";
+                }
+                break;
+            default:
+                echo "Error: Operación no válida.";
+                break;
+        }
+    }
+    ?>
+
+    <br><br>
+    <input type="text" name="resultado" value="<?php echo $resultado; ?>" readonly>
+</body>
+</html>
